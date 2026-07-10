@@ -4,6 +4,7 @@ import 'package:flutter_ui_catalog/features/catalog/data/registries/basic_compon
 import 'package:flutter_ui_catalog/features/catalog/data/registries/catalog_registry.dart';
 import 'package:flutter_ui_catalog/features/catalog/presentation/controllers/demo_configuration_controller.dart';
 import 'package:flutter_ui_catalog/features/catalog/presentation/widgets/component_demo_preview.dart';
+import 'package:flutter_ui_catalog/shared/component_preview/component_preview_frame.dart';
 
 const _basicCategories = <String>{
   'buttons',
@@ -84,4 +85,30 @@ void main() {
     await tester.pump();
     expect(tester.widget<Checkbox>(find.byType(Checkbox)).value, isTrue);
   });
+
+  testWidgets(
+    'list controls render safely inside the decorated preview frame',
+    (tester) async {
+      final component = basicComponents.firstWhere(
+        (item) => item.id == 'switch',
+      );
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: ComponentPreviewFrame(
+              child: ComponentDemoPreview(
+                component: component,
+                configuration: const DemoConfiguration(),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+      await tester.tap(find.text('Notificaciones'));
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+    },
+  );
 }

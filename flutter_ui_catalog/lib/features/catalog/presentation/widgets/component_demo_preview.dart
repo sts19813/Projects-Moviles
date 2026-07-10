@@ -30,10 +30,36 @@ import 'package:flutter_ui_catalog/components/inputs/switch_demo.dart';
 import 'package:flutter_ui_catalog/components/inputs/text_field_demo.dart';
 import 'package:flutter_ui_catalog/components/inputs/text_form_field_demo.dart';
 import 'package:flutter_ui_catalog/components/inputs/time_picker_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/align_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/aspect_ratio_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/center_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/column_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/container_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/custom_scroll_view_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/expanded_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/flexible_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/layout_builder_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/padding_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/row_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/safe_area_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/sized_box_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/sliver_grid_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/sliver_list_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/stack_demo.dart';
+import 'package:flutter_ui_catalog/components/layout/wrap_demo.dart';
 import 'package:flutter_ui_catalog/components/lists/expansion_tile_demo.dart';
 import 'package:flutter_ui_catalog/components/lists/grid_view_demo.dart';
 import 'package:flutter_ui_catalog/components/lists/list_tile_demo.dart';
 import 'package:flutter_ui_catalog/components/lists/page_view_demo.dart';
+import 'package:flutter_ui_catalog/components/media/basic_video_demo.dart';
+import 'package:flutter_ui_catalog/components/media/circular_image_demo.dart';
+import 'package:flutter_ui_catalog/components/media/file_selector_demo.dart';
+import 'package:flutter_ui_catalog/components/media/image_error_demo.dart';
+import 'package:flutter_ui_catalog/components/media/image_gallery_demo.dart';
+import 'package:flutter_ui_catalog/components/media/image_placeholder_demo.dart';
+import 'package:flutter_ui_catalog/components/media/image_selector_demo.dart';
+import 'package:flutter_ui_catalog/components/media/local_image_demo.dart';
+import 'package:flutter_ui_catalog/components/media/network_image_demo.dart';
 import 'package:flutter_ui_catalog/components/navigation/drawer_demo.dart';
 import 'package:flutter_ui_catalog/components/navigation/navigation_bar_demo.dart';
 import 'package:flutter_ui_catalog/components/navigation/navigation_rail_demo.dart';
@@ -95,6 +121,32 @@ class ComponentDemoPreview extends StatelessWidget {
       'animated-container' => const AnimatedContainerDemo(),
       'animated-opacity' => const AnimatedOpacityDemo(),
       'hero' => const HeroDemo(),
+      'row' => const RowDemo(),
+      'column' => const ColumnDemo(),
+      'stack' => const StackDemo(),
+      'wrap' => const WrapDemo(),
+      'expanded' => const ExpandedDemo(),
+      'flexible' => const FlexibleDemo(),
+      'align' => const AlignDemo(),
+      'center' => const CenterDemo(),
+      'padding' => const PaddingDemo(),
+      'container' => const ContainerDemo(),
+      'sized-box' => const SizedBoxDemo(),
+      'aspect-ratio' => const AspectRatioDemo(),
+      'layout-builder' => const LayoutBuilderDemo(),
+      'safe-area' => const SafeAreaDemo(),
+      'custom-scroll-view' => const CustomScrollViewDemo(),
+      'sliver-list' => const SliverListDemo(),
+      'sliver-grid' => const SliverGridDemo(),
+      'local-image' => const LocalImageDemo(),
+      'network-image' => const NetworkImageDemo(),
+      'image-placeholder' => const ImagePlaceholderDemo(),
+      'image-error' => const ImageErrorDemo(),
+      'circular-image' => const CircularImageDemo(),
+      'image-gallery' => const ImageGalleryDemo(),
+      'basic-video' => const BasicVideoDemo(),
+      'file-selector' => const FileSelectorDemo(),
+      'image-selector' => const ImageSelectorDemo(),
       _ => const SizedBox.shrink(),
     };
   }

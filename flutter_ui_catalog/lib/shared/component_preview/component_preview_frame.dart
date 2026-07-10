@@ -9,17 +9,21 @@ class ComponentPreviewFrame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final colors = Theme.of(context).colorScheme;
+    return ConstrainedBox(
       constraints: const BoxConstraints(minHeight: 220),
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(AppRadius.md),
-        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+      child: Material(
+        color: colors.surfaceContainerLow,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppRadius.md),
+          side: BorderSide(color: colors.outlineVariant),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          child: Align(child: child),
+        ),
       ),
-      child: child,
     );
   }
 }

@@ -4,11 +4,11 @@ import 'package:flutter_ui_catalog/features/catalog/domain/models/catalog_compon
 import 'package:flutter_ui_catalog/features/catalog/presentation/controllers/catalog_filter_controller.dart';
 
 void main() {
-  test('registry contains 40 components with unique identifiers', () {
-    expect(catalogRegistry, hasLength(40));
+  test('registry contains 66 components with unique identifiers', () {
+    expect(catalogRegistry, hasLength(66));
     expect(
       catalogRegistry.map((component) => component.id).toSet(),
-      hasLength(40),
+      hasLength(66),
     );
   });
 
