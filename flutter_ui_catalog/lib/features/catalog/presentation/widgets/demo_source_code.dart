@@ -1,3 +1,4 @@
+import 'package:flutter_ui_catalog/features/catalog/data/registries/advanced_component_source_codes.dart';
 import 'package:flutter_ui_catalog/features/catalog/data/registries/basic_component_source_codes.dart';
 import 'package:flutter_ui_catalog/features/catalog/domain/models/catalog_component.dart';
 import 'package:flutter_ui_catalog/features/catalog/presentation/controllers/demo_configuration_controller.dart';
@@ -12,6 +13,8 @@ abstract final class DemoSourceCode {
       'text-field' => _textField(configuration),
       _ when basicComponentSourceCodes.containsKey(component.id) =>
         basicComponentSourceCodes[component.id]!,
+      _ when advancedComponentSourceCodes.containsKey(component.id) =>
+        advancedComponentSourceCodes[component.id]!,
       _ when component.sourceCode.isNotEmpty => component.sourceCode,
       _ =>
         '''${component.name}(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_catalog/app/theme/app_spacing.dart';
+import 'package:flutter_ui_catalog/components/animations/animated_container_demo.dart';
+import 'package:flutter_ui_catalog/components/animations/animated_opacity_demo.dart';
+import 'package:flutter_ui_catalog/components/animations/hero_demo.dart';
 import 'package:flutter_ui_catalog/components/buttons/adaptive_button_demo.dart';
 import 'package:flutter_ui_catalog/components/buttons/cupertino_button_demo.dart';
 import 'package:flutter_ui_catalog/components/buttons/elevated_button_demo.dart';
@@ -9,6 +11,15 @@ import 'package:flutter_ui_catalog/components/buttons/icon_button_demo.dart';
 import 'package:flutter_ui_catalog/components/buttons/outlined_button_demo.dart';
 import 'package:flutter_ui_catalog/components/buttons/text_button_demo.dart';
 import 'package:flutter_ui_catalog/components/cards/card_demo.dart';
+import 'package:flutter_ui_catalog/components/cupertino/cupertino_alert_dialog_demo.dart';
+import 'package:flutter_ui_catalog/components/data_display/data_table_demo.dart';
+import 'package:flutter_ui_catalog/components/dialogs/alert_dialog_demo.dart';
+import 'package:flutter_ui_catalog/components/dialogs/bottom_sheet_demo.dart';
+import 'package:flutter_ui_catalog/components/feedback/chip_demo.dart';
+import 'package:flutter_ui_catalog/components/feedback/circular_progress_indicator_demo.dart';
+import 'package:flutter_ui_catalog/components/feedback/linear_progress_indicator_demo.dart';
+import 'package:flutter_ui_catalog/components/feedback/snack_bar_demo.dart';
+import 'package:flutter_ui_catalog/components/feedback/tooltip_demo.dart';
 import 'package:flutter_ui_catalog/components/inputs/checkbox_demo.dart';
 import 'package:flutter_ui_catalog/components/inputs/cupertino_switch_demo.dart';
 import 'package:flutter_ui_catalog/components/inputs/date_picker_demo.dart';
@@ -30,7 +41,6 @@ import 'package:flutter_ui_catalog/components/navigation/stepper_demo.dart';
 import 'package:flutter_ui_catalog/components/navigation/tab_bar_demo.dart';
 import 'package:flutter_ui_catalog/features/catalog/domain/models/catalog_component.dart';
 import 'package:flutter_ui_catalog/features/catalog/presentation/controllers/demo_configuration_controller.dart';
-import 'package:flutter_ui_catalog/features/catalog/presentation/widgets/catalog_visuals.dart';
 
 class ComponentDemoPreview extends StatelessWidget {
   const ComponentDemoPreview({
@@ -73,30 +83,19 @@ class ComponentDemoPreview extends StatelessWidget {
       'drawer' => const DrawerDemo(),
       'tab-bar' => const TabBarDemo(),
       'stepper' => const StepperDemo(),
-      _ => _PendingPreview(component: component),
+      'alert-dialog' => const AlertDialogDemo(),
+      'bottom-sheet' => const BottomSheetDemo(),
+      'cupertino-alert-dialog' => const CupertinoAlertDialogDemo(),
+      'snack-bar' => const SnackBarDemo(),
+      'tooltip' => const TooltipDemo(),
+      'circular-progress-indicator' => const CircularProgressIndicatorDemo(),
+      'linear-progress-indicator' => const LinearProgressIndicatorDemo(),
+      'chip' => const ChipDemo(),
+      'data-table' => const DataTableDemo(),
+      'animated-container' => const AnimatedContainerDemo(),
+      'animated-opacity' => const AnimatedOpacityDemo(),
+      'hero' => const HeroDemo(),
+      _ => const SizedBox.shrink(),
     };
-  }
-}
-
-class _PendingPreview extends StatelessWidget {
-  const _PendingPreview({required this.component});
-
-  final CatalogComponent component;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Icon(iconForCategory(component.categoryId), size: 56),
-        const SizedBox(height: AppSpacing.md),
-        Text(component.name, style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: AppSpacing.xs),
-        const Text(
-          'Vista registrada; la implementación avanzada se añadirá en la Fase 6.',
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
   }
 }
