@@ -10,6 +10,7 @@ import 'package:flutter_ui_catalog/features/catalog/presentation/widgets/compone
 import 'package:flutter_ui_catalog/features/catalog/presentation/widgets/component_variants.dart';
 import 'package:flutter_ui_catalog/features/catalog/presentation/widgets/demo_source_code.dart';
 import 'package:flutter_ui_catalog/features/favorites/presentation/controllers/favorites_controller.dart';
+import 'package:flutter_ui_catalog/features/recent/presentation/controllers/recent_visit_tracker.dart';
 import 'package:flutter_ui_catalog/features/settings/display_preferences_controller.dart';
 import 'package:flutter_ui_catalog/shared/code_viewer/code_viewer.dart';
 import 'package:flutter_ui_catalog/shared/component_preview/component_demo_card.dart';
@@ -46,83 +47,95 @@ class ComponentDetailPage extends ConsumerWidget {
         .showCodeAutomatically;
     final demoController = ref.read(demoConfigurationsProvider.notifier);
 
-    return DefaultTabController(
-      length: 5,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(component.name),
-          actions: <Widget>[
-            IconButton(
-              tooltip: isFavorite
-                  ? 'Quitar de favoritos'
-                  : 'Agregar a favoritos',
-              onPressed: () {
-                ref.read(favoritesProvider.notifier).toggle(component.id);
-              },
-              icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_outline),
+    return RecentVisitTracker(
+      componentId: component.id,
+      child: DefaultTabController(
+        length: 5,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(component.name),
+            actions: <Widget>[
+              IconButton(
+                tooltip: isFavorite
+                    ? 'Quitar de favoritos'
+                    : 'Agregar a favoritos',
+                onPressed: () {
+                  ref.read(favoritesProvider.notifier).toggle(component.id);
+                },
+                icon: Icon(
+                  isFavorite ? Icons.favorite : Icons.favorite_outline,
+                ),
+              ),
+            ],
+            bottom: const TabBar(
+              isScrollable: true,
+              tabs: <Widget>[
+                Tab(
+                  text: 'Vista previa',
+                  icon: Icon(Icons.visibility_outlined),
+                ),
+                Tab(
+                  text: 'Variantes',
+                  icon: Icon(Icons.view_carousel_outlined),
+                ),
+                Tab(text: 'Código', icon: Icon(Icons.code)),
+                Tab(text: 'Propiedades', icon: Icon(Icons.tune)),
+                Tab(text: 'Notas', icon: Icon(Icons.notes)),
+              ],
             ),
-          ],
-          bottom: const TabBar(
-            isScrollable: true,
-            tabs: <Widget>[
-              Tab(text: 'Vista previa', icon: Icon(Icons.visibility_outlined)),
-              Tab(text: 'Variantes', icon: Icon(Icons.view_carousel_outlined)),
-              Tab(text: 'Código', icon: Icon(Icons.code)),
-              Tab(text: 'Propiedades', icon: Icon(Icons.tune)),
-              Tab(text: 'Notas', icon: Icon(Icons.notes)),
+          ),
+          body: TabBarView(
+            children: <Widget>[
+              ListView(
+                padding: const EdgeInsets.all(AppSpacing.md),
+                children: <Widget>[
+                  ComponentDemoCard(
+                    title: component.name,
+                    description: component.description,
+                    preview: ComponentDemoPreview(
+                      component: component,
+                      configuration: configuration,
+                    ),
+                    sourceCode: sourceCode,
+                    properties: <String>[
+                      component.platform.label,
+                      component.level.label,
+                      ...component.tags,
+                    ],
+                    notes: <String>[
+                      'Categoría: ${component.categoryId}',
+                      'La vista respeta el tema y el tamaño de texto del sistema.',
+                    ],
+                    initiallyShowCode: showCodeAutomatically,
+                  ),
+                ],
+              ),
+              ComponentVariants(component: component),
+              ListView(
+                padding: const EdgeInsets.all(AppSpacing.md),
+                children: <Widget>[
+                  Text(
+                    'Código fuente',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
+                  const Text(
+                    'El ejemplo se actualiza cuando modificas el playground.',
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                  CodeViewer(code: sourceCode, initiallyExpanded: true),
+                ],
+              ),
+              ComponentPropertiesPanel(
+                component: component,
+                configuration: configuration,
+                onChanged: (value) =>
+                    demoController.update(component.id, value),
+                onReset: () => demoController.reset(component.id),
+              ),
+              _ComponentNotes(component: component),
             ],
           ),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            ListView(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              children: <Widget>[
-                ComponentDemoCard(
-                  title: component.name,
-                  description: component.description,
-                  preview: ComponentDemoPreview(
-                    component: component,
-                    configuration: configuration,
-                  ),
-                  sourceCode: sourceCode,
-                  properties: <String>[
-                    component.platform.label,
-                    component.level.label,
-                    ...component.tags,
-                  ],
-                  notes: <String>[
-                    'Categoría: ${component.categoryId}',
-                    'La vista respeta el tema y el tamaño de texto del sistema.',
-                  ],
-                  initiallyShowCode: showCodeAutomatically,
-                ),
-              ],
-            ),
-            ComponentVariants(component: component),
-            ListView(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              children: <Widget>[
-                Text(
-                  'Código fuente',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                const SizedBox(height: AppSpacing.xs),
-                const Text(
-                  'El ejemplo se actualiza cuando modificas el playground.',
-                ),
-                const SizedBox(height: AppSpacing.md),
-                CodeViewer(code: sourceCode, initiallyExpanded: true),
-              ],
-            ),
-            ComponentPropertiesPanel(
-              component: component,
-              configuration: configuration,
-              onChanged: (value) => demoController.update(component.id, value),
-              onReset: () => demoController.reset(component.id),
-            ),
-            _ComponentNotes(component: component),
-          ],
         ),
       ),
     );

@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_ui_catalog/app/theme/app_spacing.dart';
+import 'package:flutter_ui_catalog/core/persistence/app_preferences_repository.dart';
+import 'package:flutter_ui_catalog/features/favorites/presentation/controllers/favorites_controller.dart';
+import 'package:flutter_ui_catalog/features/recent/presentation/controllers/recent_components_controller.dart';
+import 'package:flutter_ui_catalog/features/search/presentation/controllers/catalog_search_controller.dart';
 import 'package:flutter_ui_catalog/features/settings/display_preferences_controller.dart';
 import 'package:flutter_ui_catalog/features/settings/theme_controller.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
-  void _reset(BuildContext context, WidgetRef ref) {
-    ref
-        .read(themeControllerProvider.notifier)
-        .setTheme(AppThemePreference.system);
-    ref.read(displayPreferencesProvider.notifier).reset();
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Preferencias restablecidas')));
+  Future<void> _reset(BuildContext context, WidgetRef ref) async {
+    try {
+      await ref.read(appPreferencesRepositoryProvider).clear();
+      ref
+          .read(themeControllerProvider.notifier)
+          .setTheme(AppThemePreference.system, persist: false);
+      ref.read(displayPreferencesProvider.notifier).reset(persist: false);
+      ref.read(favoritesProvider.notifier).clear(persist: false);
+      ref.read(catalogSearchProvider.notifier).clearHistory(persist: false);
+      ref.read(recentComponentsProvider.notifier).clear(persist: false);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Preferencias restablecidas')),
+        );
+      }
+    } on Object {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No fue posible restablecer las preferencias'),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -127,13 +147,13 @@ class SettingsPage extends ConsumerWidget {
               ),
               const SizedBox(height: AppSpacing.xl),
               OutlinedButton.icon(
-                onPressed: () => _reset(context, ref),
+                onPressed: () async => _reset(context, ref),
                 icon: const Icon(Icons.restart_alt),
                 label: const Text('Restablecer preferencias'),
               ),
               const SizedBox(height: AppSpacing.sm),
               Text(
-                'La persistencia local se conectará en la Fase 7.',
+                'Las preferencias se guardan localmente en este dispositivo.',
                 style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),

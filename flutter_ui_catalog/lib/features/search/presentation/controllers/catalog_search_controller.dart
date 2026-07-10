@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_ui_catalog/core/persistence/app_preferences_repository.dart';
 import 'package:flutter_ui_catalog/features/catalog/domain/models/catalog_category.dart';
 import 'package:flutter_ui_catalog/features/catalog/domain/models/catalog_component.dart';
 import 'package:flutter_ui_catalog/features/catalog/presentation/controllers/catalog_filter_controller.dart';
@@ -23,7 +26,19 @@ class CatalogSearchController extends Notifier<CatalogSearchState> {
   static const _historyLimit = 6;
 
   @override
-  CatalogSearchState build() => const CatalogSearchState();
+  CatalogSearchState build() {
+    return CatalogSearchState(
+      history: ref.watch(persistedAppStateProvider).searchHistory,
+    );
+  }
+
+  void _persistHistory() {
+    unawaited(
+      ref
+          .read(appPreferencesRepositoryProvider)
+          .saveSearchHistory(state.history),
+    );
+  }
 
   void updateQuery(String query) {
     state = state.copyWith(query: query);
@@ -41,6 +56,7 @@ class CatalogSearchController extends Notifier<CatalogSearchState> {
       ),
     ].take(_historyLimit).toList(growable: false);
     state = state.copyWith(query: query, history: history);
+    _persistHistory();
   }
 
   void selectHistory(String query) {
@@ -52,8 +68,11 @@ class CatalogSearchController extends Notifier<CatalogSearchState> {
     state = state.copyWith(query: '');
   }
 
-  void clearHistory() {
+  void clearHistory({bool persist = true}) {
     state = state.copyWith(history: const <String>[]);
+    if (persist) {
+      _persistHistory();
+    }
   }
 }
 
