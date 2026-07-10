@@ -152,6 +152,53 @@ void main() {
     );
   });
 
+  testWidgets('changes the application theme from home', (tester) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(() {
+      tester.view.resetDevicePixelRatio();
+      tester.view.resetPhysicalSize();
+    });
+
+    await tester.pumpWidget(const ProviderScope(child: FlutterUiCatalogApp()));
+    await tester.pump(const Duration(milliseconds: 700));
+    await tester.pumpAndSettle();
+
+    expect(
+      tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
+      ThemeMode.system,
+    );
+    await tester.tap(find.byTooltip('Cambiar tema'));
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
+      ThemeMode.dark,
+    );
+  });
+
+  testWidgets('adds and removes a catalog favorite', (tester) async {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(390, 844);
+    addTearDown(() {
+      tester.view.resetDevicePixelRatio();
+      tester.view.resetPhysicalSize();
+    });
+
+    await tester.pumpWidget(const ProviderScope(child: FlutterUiCatalogApp()));
+    await tester.pump(const Duration(milliseconds: 700));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Catálogo').last);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byTooltip('Agregar a favoritos').first);
+    await tester.pumpAndSettle();
+    expect(find.byTooltip('Quitar de favoritos'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Quitar de favoritos'));
+    await tester.pumpAndSettle();
+    expect(find.byTooltip('Agregar a favoritos'), findsWidgets);
+  });
+
   test('theme and display preferences can change and reset', () {
     final container = ProviderContainer();
     addTearDown(container.dispose);
