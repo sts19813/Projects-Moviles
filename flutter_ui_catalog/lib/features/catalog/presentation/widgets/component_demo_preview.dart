@@ -11,7 +11,17 @@ import 'package:flutter_ui_catalog/components/buttons/icon_button_demo.dart';
 import 'package:flutter_ui_catalog/components/buttons/outlined_button_demo.dart';
 import 'package:flutter_ui_catalog/components/buttons/text_button_demo.dart';
 import 'package:flutter_ui_catalog/components/cards/card_demo.dart';
+import 'package:flutter_ui_catalog/components/charts/area_chart_demo.dart';
+import 'package:flutter_ui_catalog/components/charts/bar_chart_demo.dart';
+import 'package:flutter_ui_catalog/components/charts/line_chart_demo.dart';
+import 'package:flutter_ui_catalog/components/charts/pie_chart_demo.dart';
+import 'package:flutter_ui_catalog/components/charts/radar_chart_demo.dart';
+import 'package:flutter_ui_catalog/components/charts/scatter_chart_demo.dart';
 import 'package:flutter_ui_catalog/components/cupertino/cupertino_alert_dialog_demo.dart';
+import 'package:flutter_ui_catalog/components/cupertino/cupertino_date_picker_demo.dart';
+import 'package:flutter_ui_catalog/components/cupertino/cupertino_modal_popup_route_demo.dart';
+import 'package:flutter_ui_catalog/components/cupertino/cupertino_picker_demo.dart';
+import 'package:flutter_ui_catalog/components/cupertino/cupertino_time_picker_demo.dart';
 import 'package:flutter_ui_catalog/components/data_display/data_table_demo.dart';
 import 'package:flutter_ui_catalog/components/dialogs/alert_dialog_demo.dart';
 import 'package:flutter_ui_catalog/components/dialogs/bottom_sheet_demo.dart';
@@ -147,6 +157,16 @@ class ComponentDemoPreview extends StatelessWidget {
       'basic-video' => const BasicVideoDemo(),
       'file-selector' => const FileSelectorDemo(),
       'image-selector' => const ImageSelectorDemo(),
+      'cupertino-date-picker' => const CupertinoDatePickerDemo(),
+      'cupertino-picker' => const CupertinoPickerDemo(),
+      'cupertino-time-picker' => const CupertinoTimePickerDemo(),
+      'cupertino-modal-popup-route' => const CupertinoModalPopupRouteDemo(),
+      'bar-chart' => const BarChartDemo(),
+      'pie-chart' => const PieChartDemo(),
+      'line-chart' => const LineChartDemo(),
+      'area-chart' => const AreaChartDemo(),
+      'scatter-chart' => const ScatterChartDemo(),
+      'radar-chart' => const RadarChartDemo(),
       _ => const SizedBox.shrink(),
     };
   }

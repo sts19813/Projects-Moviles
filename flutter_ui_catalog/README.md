@@ -1,12 +1,14 @@
 # Flutter UI Catalog
 
-Catálogo interactivo de componentes reutilizables para Flutter. La aplicación permite explorar 66 componentes Material, Cupertino y adaptativos, probar sus estados, modificar propiedades, consultar código Dart y guardar preferencias locales.
+Catálogo interactivo de componentes reutilizables para Flutter. La aplicación permite explorar 76 componentes Material, Cupertino y adaptativos, probar sus estados, modificar propiedades, consultar código Dart y guardar preferencias locales.
 
 El proyecto funciona en Android e iOS, utiliza Material 3 y adapta su navegación a teléfonos, tablets y orientación horizontal.
 
 ## Características
 
-- 66 componentes funcionales organizados por categorías, incluyendo diseño, estructura y multimedia.
+- 76 componentes funcionales organizados por categorías, incluyendo diseño, estructura, multimedia y gráficas.
+- Gráficas interactivas de barras, circular, líneas, área, dispersión y radar con `fl_chart`.
+- Selectores de fecha, hora y rueda, además de rutas modales con estilo Cupertino.
 - Vistas previas interactivas y variantes.
 - Playground dinámico para `FilledButton` y `TextField`.
 - Código Dart con resaltado de sintaxis, expansión y copia al portapapeles.

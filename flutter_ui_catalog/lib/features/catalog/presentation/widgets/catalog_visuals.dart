@@ -31,6 +31,7 @@ IconData iconForCategory(String categoryId) => switch (categoryId) {
   'lists' => Icons.view_list,
   'feedback' => Icons.tips_and_updates_outlined,
   'data-display' => Icons.bar_chart,
+  'charts' => Icons.insights,
   'layout' => Icons.dashboard_outlined,
   'media' => Icons.perm_media_outlined,
   'animations' => Icons.animation,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_ui_catalog/features/catalog/data/registries/basic_component_source_codes.dart';
 import 'package:flutter_ui_catalog/features/catalog/data/registries/catalog_registry.dart';
+import 'package:flutter_ui_catalog/features/catalog/data/registries/cupertino_chart_source_codes.dart';
 import 'package:flutter_ui_catalog/features/catalog/presentation/controllers/demo_configuration_controller.dart';
 import 'package:flutter_ui_catalog/features/catalog/presentation/widgets/component_demo_preview.dart';
 import 'package:flutter_ui_catalog/shared/component_preview/component_preview_frame.dart';
@@ -19,13 +20,15 @@ void main() {
       .where((component) => _basicCategories.contains(component.categoryId))
       .toList(growable: false);
 
-  test('all 28 basic components have a specific source example', () {
-    expect(basicComponents, hasLength(28));
+  test('all 31 core components have a specific source example', () {
+    expect(basicComponents, hasLength(31));
     for (final component in basicComponents) {
       final isDynamic =
           component.id == 'filled-button' || component.id == 'text-field';
       expect(
-        isDynamic || basicComponentSourceCodes.containsKey(component.id),
+        isDynamic ||
+            basicComponentSourceCodes.containsKey(component.id) ||
+            cupertinoChartSourceCodes.containsKey(component.id),
         isTrue,
         reason: '${component.id} does not have a source example',
       );

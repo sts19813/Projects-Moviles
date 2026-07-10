@@ -1,5 +1,6 @@
 import 'package:flutter_ui_catalog/features/catalog/data/registries/advanced_component_source_codes.dart';
 import 'package:flutter_ui_catalog/features/catalog/data/registries/basic_component_source_codes.dart';
+import 'package:flutter_ui_catalog/features/catalog/data/registries/cupertino_chart_source_codes.dart';
 import 'package:flutter_ui_catalog/features/catalog/data/registries/layout_media_source_codes.dart';
 import 'package:flutter_ui_catalog/features/catalog/domain/models/catalog_component.dart';
 import 'package:flutter_ui_catalog/features/catalog/presentation/controllers/demo_configuration_controller.dart';
@@ -18,6 +19,8 @@ abstract final class DemoSourceCode {
         advancedComponentSourceCodes[component.id]!,
       _ when layoutMediaSourceCodes.containsKey(component.id) =>
         layoutMediaSourceCodes[component.id]!,
+      _ when cupertinoChartSourceCodes.containsKey(component.id) =>
+        cupertinoChartSourceCodes[component.id]!,
       _ when component.sourceCode.isNotEmpty => component.sourceCode,
       _ =>
         '''${component.name}(

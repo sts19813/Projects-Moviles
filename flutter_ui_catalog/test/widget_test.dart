@@ -23,7 +23,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 700));
     await tester.pumpAndSettle();
 
-    expect(find.text('66 componentes disponibles'), findsOneWidget);
+    expect(find.text('76 componentes disponibles'), findsOneWidget);
     expect(find.byType(NavigationBar), findsOneWidget);
     expect(find.text('Recientes'), findsOneWidget);
   });
@@ -82,13 +82,13 @@ void main() {
     await tester.tap(find.text('Catálogo').last);
     await tester.pumpAndSettle();
 
-    expect(find.text('66 componentes'), findsOneWidget);
+    expect(find.text('76 componentes'), findsOneWidget);
     expect(find.text('FilledButton'), findsOneWidget);
 
     await tester.tap(find.text('Cupertino').first);
     await tester.pumpAndSettle();
 
-    expect(find.text('3 componentes'), findsOneWidget);
+    expect(find.text('7 componentes'), findsOneWidget);
     expect(
       find.descendant(
         of: find.byType(CatalogComponentCard),

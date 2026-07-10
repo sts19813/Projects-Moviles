@@ -42,6 +42,11 @@ const catalogCategories = <CatalogCategory>[
     description: 'Tablas, métricas y representaciones visuales.',
   ),
   CatalogCategory(
+    id: 'charts',
+    name: 'Gráficas',
+    description: 'Series, comparaciones, proporciones y tendencias.',
+  ),
+  CatalogCategory(
     id: 'layout',
     name: 'Diseño y estructura',
     description: 'Composición y adaptación de interfaces.',
